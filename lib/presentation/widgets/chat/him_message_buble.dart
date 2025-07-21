@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:yes_no_app/domain/entities/message.dart';
 
-class HerMessageBubble extends StatelessWidget {
-  const HerMessageBubble({super.key});
+class HimMessageBubble extends StatelessWidget {
+  final Message message;
+  const HimMessageBubble({super.key, required this.message});
 
   @override
   Widget build(BuildContext context) {
@@ -18,16 +20,18 @@ class HerMessageBubble extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Text(
-              'Los mensajes de la otra persona.',
-              style: TextStyle(color: Colors.white),
+              message.text,
+              style: const TextStyle(color: Colors.white),
             ),
           ),
         ),
 
         const SizedBox(height: 5),
 
-        _ImageBubble(),
-
+        _ImageBubble(
+          message.imageUrl ??
+              'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR1C0XX0G2NSOp5mmXPK6gwcRaZdCdmm3AQopYkwtzWCqfsv_VN06S8YeJZKyT7CnEmqo286gVeCHSUI2T3h7Z3zA',
+        ),
         const SizedBox(height: 10),
       ],
     );
@@ -35,6 +39,9 @@ class HerMessageBubble extends StatelessWidget {
 }
 
 class _ImageBubble extends StatelessWidget {
+  final String imageUrl;
+
+  const _ImageBubble(this.imageUrl);
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -42,7 +49,7 @@ class _ImageBubble extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
       child: Image.network(
-        'https://i0.wp.com/puppis.blog/wp-content/uploads/2022/02/abc-cuidado-de-los-gatos-min.jpg?resize=521%2C346&ssl=1',
+        imageUrl,
         width: size.width * 0.7,
         height: 150,
         fit: BoxFit.cover,
